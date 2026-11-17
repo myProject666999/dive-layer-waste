@@ -1,0 +1,211 @@
+package ci
+
+import (
+	"context"
+	"github.com/stretchr/testify/require"
+	"strings"
+	"testing"
+
+	"github.com/wagoodman/dive/dive"
+	"github.com/wagoodman/dive/internal/imagefixture"
+)
+
+func Test_Evaluator(t *testing.T) {
+	result, err := dive.Analyze(context.Background(), "test-docker-image", imagefixture.Load(t, "test-docker-image"))
+	require.NoError(t, err)
+
+	validTests := []struct {
+		name           string
+		efficiency     string
+		wastedBytes    string
+		wastedPercent  string
+		expectedPass   bool
+		expectedResult map[string]RuleStatus
+	}{
+		{
+			name:          "allFail",
+			efficiency:    "0.99",
+			wastedBytes:   "1B",
+			wastedPercent: "0.01",
+			expectedPass:  false,
+			expectedResult: map[string]RuleStatus{
+				"lowestEfficiency":         RuleFailed,
+				"highestWastedBytes":       RuleFailed,
+				"highestUserWastedPercent": RuleFailed,
+			},
+		},
+		{
+			name:          "allPass",
+			efficiency:    "0.9",
+			wastedBytes:   "50kB",
+			wastedPercent: "0.5",
+			expectedPass:  true,
+			expectedResult: map[string]RuleStatus{
+				"lowestEfficiency":         RulePassed,
+				"highestWastedBytes":       RulePassed,
+				"highestUserWastedPercent": RulePassed,
+			},
+		},
+		{
+			name:          "allDisabled",
+			efficiency:    "disabled",
+			wastedBytes:   "disabled",
+			wastedPercent: "disabled",
+			expectedPass:  true,
+			expectedResult: map[string]RuleStatus{
+				"lowestEfficiency":         RuleDisabled,
+				"highestWastedBytes":       RuleDisabled,
+				"highestUserWastedPercent": RuleDisabled,
+			},
+		},
+		{
+			name:          "mixedResults",
+			efficiency:    "0.9",
+			wastedBytes:   "1B",
+			wastedPercent: "0.5",
+			expectedPass:  false,
+			expectedResult: map[string]RuleStatus{
+				"lowestEfficiency":         RulePassed,
+				"highestWastedBytes":       RuleFailed,
+				"highestUserWastedPercent": RulePassed,
+			},
+		},
+	}
+
+	for _, test := range validTests {
+		t.Run(test.name, func(t *testing.T) {
+			// Create rules - these should not error
+			rules, err := Rules(test.efficiency, test.wastedBytes, test.wastedPercent)
+			require.NoError(t, err)
+
+			evaluator := NewEvaluator(rules)
+			eval := evaluator.Evaluate(context.TODO(), NewStats(result))
+
+			if test.expectedPass != eval.Pass {
+				t.Errorf("expected pass=%v, got %v", test.expectedPass, eval.Pass)
+			}
+
+			if len(test.expectedResult) != len(evaluator.Results) {
+				t.Errorf("expected %v results, got %v", len(test.expectedResult), len(evaluator.Results))
+			}
+
+			for rule, actualResult := range evaluator.Results {
+				expectedStatus := test.expectedResult[rule]
+				if expectedStatus != actualResult.status {
+					t.Errorf("%v: expected %v rule status, got %v: %v",
+						rule, expectedStatus, actualResult.status, actualResult)
+				}
+			}
+		})
+	}
+
+}
+
+func Test_Evaluator_Misconfigurations(t *testing.T) {
+	invalidTests := []struct {
+		name          string
+		efficiency    string
+		wastedBytes   string
+		wastedPercent string
+		expectError   bool
+	}{
+		{
+			name:          "invalid_efficiency_too_high",
+			efficiency:    "1.1", // fail!
+			wastedBytes:   "50kB",
+			wastedPercent: "0.5",
+			expectError:   true,
+		},
+		{
+			name:          "invalid_efficiency_too_low",
+			efficiency:    "-0.1", // fail!
+			wastedBytes:   "50kB",
+			wastedPercent: "0.5",
+			expectError:   true,
+		},
+		{
+			name:          "invalid_efficiency_format",
+			efficiency:    "not_a_number", // fail!
+			wastedBytes:   "50kB",
+			wastedPercent: "0.5",
+			expectError:   true,
+		},
+		{
+			name:          "invalid_wasted_bytes_format",
+			efficiency:    "0.9",
+			wastedBytes:   "not_a_size", // fail!
+			wastedPercent: "0.5",
+			expectError:   true,
+		},
+		{
+			name:          "invalid_wasted_percent_high",
+			efficiency:    "0.9",
+			wastedBytes:   "50kB",
+			wastedPercent: "1.1", // fail!
+			expectError:   true,
+		},
+		{
+			name:          "invalid_wasted_percent_low",
+			efficiency:    "0.9",
+			wastedBytes:   "50kB",
+			wastedPercent: "-0.1", // fail!
+			expectError:   true,
+		},
+		{
+			name:          "invalid_efficiency_nan",
+			efficiency:    "NaN", // fail!
+			wastedBytes:   "50kB",
+			wastedPercent: "0.5",
+			expectError:   true,
+		},
+		{
+			name:          "invalid_wasted_percent_nan",
+			efficiency:    "0.9",
+			wastedBytes:   "50kB",
+			wastedPercent: "nan", // fail!
+			expectError:   true,
+		},
+		{
+			name:          "invalid_wasted_percent_format",
+			efficiency:    "0.9",
+			wastedBytes:   "50kB",
+			wastedPercent: "not_a_number", // fail!
+			expectError:   true,
+		},
+	}
+
+	for _, test := range invalidTests {
+		t.Run(test.name, func(t *testing.T) {
+			_, err := Rules(test.efficiency, test.wastedBytes, test.wastedPercent)
+			if test.expectError {
+				require.Error(t, err, "Expected an error for invalid configuration")
+			} else {
+				require.NoError(t, err, "Expected no error for valid configuration")
+			}
+		})
+	}
+}
+
+func Test_NewStats_NoUserBytes(t *testing.T) {
+	// the only user layer removes a base file, so it adds 0 bytes but still wastes the removed ones
+	img := imagefixture.LoadSpec(t, imagefixture.Spec{
+		Format: imagefixture.OCISave,
+		Layers: [][]imagefixture.Entry{
+			{{Name: "big", Content: strings.Repeat("b", 1000)}},
+			{{Name: ".wh.big"}},
+		},
+	})
+	analysis, err := dive.Analyze(context.Background(), "spec", img)
+	require.NoError(t, err)
+	require.Zero(t, analysis.UserSizeBytes)
+	require.NotZero(t, analysis.WastedBytes)
+
+	stats := NewStats(analysis)
+	require.Equal(t, analysis.WastedUserPercent, stats.WastedUserPercent)
+
+	rules, err := Rules("disabled", "disabled", "0.1")
+	require.NoError(t, err)
+	eval := NewEvaluator(rules).Evaluate(context.TODO(), stats)
+	require.NotContains(t, eval.Report, "Inf")
+	require.NotContains(t, eval.Report, "NaN")
+}
