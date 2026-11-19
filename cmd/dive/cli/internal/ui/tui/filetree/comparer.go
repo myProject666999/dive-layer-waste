@@ -11,6 +11,7 @@ import (
 	"github.com/anchore/stereoscope/pkg/image"
 	"github.com/cespare/xxhash/v2"
 
+	"github.com/wagoodman/dive/internal/layerdiff"
 	"github.com/wagoodman/dive/internal/layertree"
 	"github.com/wagoodman/dive/internal/log"
 )
@@ -46,6 +47,9 @@ type Comparer struct {
 	layerTrees map[int]layerTree
 	trees      map[TreeIndexKey]*FileTree
 	hashes     map[file.ID]uint64
+	// diffReport is the layerdiff engine's authoritative per-layer/cumulative statuses, built once lazily
+	diffReport *layerdiff.Report
+	reportErr  error
 }
 
 // layerTree is the UI tree of one layer's own (unsquashed) tree, whiteout entries included, plus the directories
@@ -62,6 +66,21 @@ func NewComparer(img *image.Image) *Comparer {
 		trees:      make(map[TreeIndexKey]*FileTree),
 		hashes:     make(map[file.ID]uint64),
 	}
+}
+
+// layerDiffReport runs the engine with the same content hasher the tree comparison uses, so statuses reflect real
+// content equality.
+func (cmp *Comparer) layerDiffReport() (*layerdiff.Report, error) {
+	if cmp.diffReport == nil && cmp.reportErr == nil {
+		hasher := func(ref *file.Reference) (uint64, bool) {
+			if ref == nil {
+				return 0, false
+			}
+			return cmp.contentHash(FileInfo{ref: ref})
+		}
+		cmp.diffReport, cmp.reportErr = layerdiff.AnalyzeImage(cmp.img, hasher)
+	}
+	return cmp.diffReport, cmp.reportErr
 }
 
 // GetTree returns the bottom range of layers marked with the changes of the top range. The bottom range always
@@ -90,6 +109,16 @@ func (cmp *Comparer) GetTree(key TreeIndexKey) (*FileTree, error) {
 			}
 		}
 	}
+
+	// overlay the engine's two status conventions. A layer compared against itself (the startup view) keeps the
+	// tree's all-Unmodified result; a single other top layer is the per-layer view and a range is cumulative.
+	if key.bottomTreeStop != key.topTreeStop || key.topTreeStart != key.topTreeStop {
+		if report, err := cmp.layerDiffReport(); err == nil {
+			cumulativeDisplay := key.topTreeStart != key.topTreeStop
+			tree.applyLayerDiff(report, key.topTreeStart, key.topTreeStop, cumulativeDisplay)
+		}
+	}
+
 	cmp.trees[key] = tree
 	return tree, nil
 }

@@ -120,5 +120,193 @@
         "file": "/app/same"
       }
     ]
+  },
+  "layerDiff": {
+    "paths": [
+      {
+        "path": "/app",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          },
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/app/owned",
+        "incarnations": 1,
+        "wastedBytes": 6,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 6,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          },
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 6,
+            "perLayerStatus": "Modified",
+            "cumulativeStatus": "Modified",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/app/run.sh",
+        "incarnations": 1,
+        "wastedBytes": 18,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 18,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          },
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 18,
+            "perLayerStatus": "Modified",
+            "cumulativeStatus": "Modified",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/app/same",
+        "incarnations": 1,
+        "wastedBytes": 5,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 5,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          },
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 5,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "metadataOnly": false
+          }
+        ]
+      }
+    ],
+    "layers": [
+      {
+        "index": 0,
+        "changes": [
+          {
+            "path": "/app",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/app/owned",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/app/run.sh",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/app/same",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "changes": [
+          {
+            "path": "/app",
+            "incarnation": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/app/owned",
+            "incarnation": 0,
+            "perLayerStatus": "Modified",
+            "cumulativeStatus": "Modified",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/app/run.sh",
+            "incarnation": 0,
+            "perLayerStatus": "Modified",
+            "cumulativeStatus": "Modified",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/app/same",
+            "incarnation": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          }
+        ]
+      }
+    ]
   }
 }

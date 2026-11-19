@@ -206,7 +206,13 @@ func (node *FileNode) MetadataString() string {
 
 	size := humanize.Bytes(uint64(sizeBytes))
 
-	return diffTypeColor[node.Data.DiffType].Sprint(fmt.Sprintf(AttributeFormat, dir, fileMode.String(), userGroup, size))
+	metaMarker := ""
+	if node.Data.MetadataOnly {
+		// a directory whose own mode/owner/xattr changed independently of its subtree
+		metaMarker = " m"
+	}
+
+	return diffTypeColor[node.Data.DiffType].Sprint(fmt.Sprintf(AttributeFormat+metaMarker, dir, fileMode.String(), userGroup, size))
 }
 
 func (node *FileNode) GetSize() int64 {

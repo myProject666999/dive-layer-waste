@@ -93,5 +93,162 @@
     "inefficientBytes": 0,
     "efficiencyScore": 1,
     "fileReference": []
+  },
+  "layerDiff": {
+    "paths": [
+      {
+        "path": "/a",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          },
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "metadataOnly": false
+          },
+          {
+            "layer": 2,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/a/one",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 2,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/a/two",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 3,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/a/three",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 2,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 4,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      }
+    ],
+    "layers": [
+      {
+        "index": 0,
+        "changes": [
+          {
+            "path": "/a",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/a/one",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "changes": [
+          {
+            "path": "/a",
+            "incarnation": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/a/two",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "changes": [
+          {
+            "path": "/a",
+            "incarnation": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/a/three",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          }
+        ]
+      }
+    ]
   }
 }

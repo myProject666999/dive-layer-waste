@@ -223,3 +223,66 @@ func TestAnalyze_Cancelled(t *testing.T) {
 	_, err := Analyze(ctx, "legacy-save", imagefixture.Load(t, "legacy-save"))
 	assert.ErrorIs(t, err, context.Canceled)
 }
+
+func TestAnalyze_FileReplacedByDirectory(t *testing.T) {
+	// regression: a regular file replaced at the same path by a directory (no whiteout) used to leave the old
+	// file's bytes counted as still alive, so they were never wasted
+	img := imagefixture.LoadSpec(t, imagefixture.Spec{Format: imagefixture.OCISave, Layers: [][]imagefixture.Entry{
+		{{Name: "a", Content: strings.Repeat("a", 123)}},
+		{
+			{Name: "a/", Type: tar.TypeDir},
+			{Name: "a/b", Content: "new"},
+		},
+	}})
+	analysis, err := Analyze(context.Background(), "spec", img)
+	require.NoError(t, err)
+
+	require.Len(t, analysis.Inefficiencies, 1)
+	assert.Equal(t, "/a", analysis.Inefficiencies[0].Path)
+	assert.Equal(t, uint64(123), analysis.Inefficiencies[0].SizeBytes)
+	assert.Equal(t, uint64(123), analysis.WastedBytes)
+	assert.Less(t, analysis.Efficiency, 1.0)
+}
+
+func TestAnalyze_SymlinkReplacedByDirectory(t *testing.T) {
+	// the non-dir -> dir direction that carries no bytes: the symlink incarnation must still close so the
+	// recreated directory is a new identity, not a modification of the link
+	img := imagefixture.LoadSpec(t, imagefixture.Spec{Format: imagefixture.OCISave, Layers: [][]imagefixture.Entry{
+		{
+			{Name: "link", Type: tar.TypeSymlink, Linkname: "/tmp"},
+		},
+		{
+			{Name: "link/", Type: tar.TypeDir},
+			{Name: "link/f", Content: "x"},
+		},
+	}})
+	analysis, err := Analyze(context.Background(), "spec", img)
+	require.NoError(t, err)
+	// the symlink had zero bytes, so no inefficiency rows, but analysis must succeed and stay at a perfect score
+	assert.Empty(t, analysis.Inefficiencies)
+	assert.Equal(t, 1.0, analysis.Efficiency)
+}
+
+func TestAnalyze_DirectoryRecreatedAfterWhiteout(t *testing.T) {
+	// a directory removed wholesale then recreated at the same path: every old child is wasted, the new child
+	// is a fresh addition rather than a modification of the old tree
+	img := imagefixture.LoadSpec(t, imagefixture.Spec{Format: imagefixture.OCISave, Layers: [][]imagefixture.Entry{
+		{
+			{Name: "d/", Type: tar.TypeDir},
+			{Name: "d/old", Content: strings.Repeat("o", 100)},
+		},
+		{
+			{Name: "d/", Type: tar.TypeDir},
+			{Name: "d/.wh.old"},
+		},
+		{
+			{Name: "d/", Type: tar.TypeDir},
+			{Name: "d/new", Content: strings.Repeat("n", 40)},
+		},
+	}})
+	analysis, err := Analyze(context.Background(), "spec", img)
+	require.NoError(t, err)
+	require.Len(t, analysis.Inefficiencies, 1)
+	assert.Equal(t, "/d/old", analysis.Inefficiencies[0].Path)
+	assert.Equal(t, uint64(100), analysis.Inefficiencies[0].SizeBytes)
+}

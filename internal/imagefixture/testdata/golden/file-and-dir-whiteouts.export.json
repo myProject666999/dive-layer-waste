@@ -179,5 +179,325 @@
         "file": "/data/remove.txt"
       }
     ]
+  },
+  "layerDiff": {
+    "paths": [
+      {
+        "path": "/data",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          },
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "metadataOnly": false
+          },
+          {
+            "layer": 2,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/data/keep.txt",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 5,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/data/olddir",
+        "incarnations": 2,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          },
+          {
+            "layer": 2,
+            "incarnation": 1,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/data/olddir/nested",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/data/olddir/nested/y",
+        "incarnations": 1,
+        "wastedBytes": 600,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 600,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/data/olddir/x",
+        "incarnations": 1,
+        "wastedBytes": 500,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 500,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/data/remove.txt",
+        "incarnations": 1,
+        "wastedBytes": 400,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 400,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/data/olddir/z",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 2,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 70,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      }
+    ],
+    "layers": [
+      {
+        "index": 0,
+        "changes": [
+          {
+            "path": "/data",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/data/keep.txt",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/data/olddir",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/data/olddir/nested",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/data/olddir/nested/y",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/data/olddir/x",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/data/remove.txt",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "changes": [
+          {
+            "path": "/data",
+            "incarnation": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/data/olddir",
+            "incarnation": 0,
+            "perLayerStatus": "Removed",
+            "cumulativeStatus": "Removed",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": true
+          },
+          {
+            "path": "/data/olddir/nested",
+            "incarnation": 0,
+            "perLayerStatus": "Removed",
+            "cumulativeStatus": "Removed",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": true
+          },
+          {
+            "path": "/data/olddir/nested/y",
+            "incarnation": 0,
+            "perLayerStatus": "Removed",
+            "cumulativeStatus": "Removed",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": true
+          },
+          {
+            "path": "/data/olddir/x",
+            "incarnation": 0,
+            "perLayerStatus": "Removed",
+            "cumulativeStatus": "Removed",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": true
+          },
+          {
+            "path": "/data/remove.txt",
+            "incarnation": 0,
+            "perLayerStatus": "Removed",
+            "cumulativeStatus": "Removed",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": true
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "changes": [
+          {
+            "path": "/data",
+            "incarnation": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/data/olddir",
+            "incarnation": 1,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/data/olddir/z",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          }
+        ]
+      }
+    ]
   }
 }

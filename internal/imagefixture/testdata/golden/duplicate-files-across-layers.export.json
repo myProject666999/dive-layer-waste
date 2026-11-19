@@ -243,5 +243,388 @@
         "file": "/var/cache/tie-b"
       }
     ]
+  },
+  "layerDiff": {
+    "paths": [
+      {
+        "path": "/var",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          },
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "metadataOnly": false
+          },
+          {
+            "layer": 2,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "metadataOnly": false
+          },
+          {
+            "layer": 3,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/var/cache",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          },
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "metadataOnly": false
+          },
+          {
+            "layer": 2,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "metadataOnly": false
+          },
+          {
+            "layer": 3,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/var/cache/big.bin",
+        "incarnations": 1,
+        "wastedBytes": 30000,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 10000,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          },
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 12000,
+            "perLayerStatus": "Modified",
+            "cumulativeStatus": "Modified",
+            "metadataOnly": false
+          },
+          {
+            "layer": 2,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 8000,
+            "perLayerStatus": "Modified",
+            "cumulativeStatus": "Modified",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/var/cache/medium.bin",
+        "incarnations": 1,
+        "wastedBytes": 3000,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 3000,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          },
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 3000,
+            "perLayerStatus": "Modified",
+            "cumulativeStatus": "Modified",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/var/cache/tie-a",
+        "incarnations": 1,
+        "wastedBytes": 500,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 500,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          },
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 500,
+            "perLayerStatus": "Modified",
+            "cumulativeStatus": "Modified",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/var/cache/tie-b",
+        "incarnations": 1,
+        "wastedBytes": 500,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 500,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          },
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 500,
+            "perLayerStatus": "Modified",
+            "cumulativeStatus": "Modified",
+            "metadataOnly": false
+          }
+        ]
+      }
+    ],
+    "layers": [
+      {
+        "index": 0,
+        "changes": [
+          {
+            "path": "/var",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/var/cache",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/var/cache/big.bin",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/var/cache/medium.bin",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/var/cache/tie-a",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/var/cache/tie-b",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "changes": [
+          {
+            "path": "/var",
+            "incarnation": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/var/cache",
+            "incarnation": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/var/cache/big.bin",
+            "incarnation": 0,
+            "perLayerStatus": "Modified",
+            "cumulativeStatus": "Modified",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/var/cache/medium.bin",
+            "incarnation": 0,
+            "perLayerStatus": "Modified",
+            "cumulativeStatus": "Modified",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/var/cache/tie-a",
+            "incarnation": 0,
+            "perLayerStatus": "Modified",
+            "cumulativeStatus": "Modified",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/var/cache/tie-b",
+            "incarnation": 0,
+            "perLayerStatus": "Modified",
+            "cumulativeStatus": "Modified",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "changes": [
+          {
+            "path": "/var",
+            "incarnation": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/var/cache",
+            "incarnation": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/var/cache/big.bin",
+            "incarnation": 0,
+            "perLayerStatus": "Modified",
+            "cumulativeStatus": "Modified",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "changes": [
+          {
+            "path": "/var",
+            "incarnation": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/var/cache",
+            "incarnation": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/var/cache/big.bin",
+            "incarnation": 0,
+            "perLayerStatus": "Removed",
+            "cumulativeStatus": "Removed",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": true
+          }
+        ]
+      }
+    ]
   }
 }

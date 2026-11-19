@@ -140,5 +140,293 @@
         "file": "/etc/app/a.conf"
       }
     ]
+  },
+  "layerDiff": {
+    "paths": [
+      {
+        "path": "/etc",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          },
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/etc/app",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          },
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/etc/app/a.conf",
+        "incarnations": 1,
+        "wastedBytes": 100,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 100,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/etc/app/b.conf",
+        "incarnations": 1,
+        "wastedBytes": 200,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 200,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/etc/app/sub",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 53,
+            "size": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/etc/app/sub/c.conf",
+        "incarnations": 1,
+        "wastedBytes": 300,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 300,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/etc/keep.conf",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 0,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 5,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      },
+      {
+        "path": "/etc/app/new.conf",
+        "incarnations": 1,
+        "wastedBytes": 0,
+        "versions": [
+          {
+            "layer": 1,
+            "incarnation": 0,
+            "typeFlag": 48,
+            "size": 50,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "metadataOnly": false
+          }
+        ]
+      }
+    ],
+    "layers": [
+      {
+        "index": 0,
+        "changes": [
+          {
+            "path": "/etc",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/etc/app",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/etc/app/a.conf",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/etc/app/b.conf",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/etc/app/sub",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/etc/app/sub/c.conf",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/etc/keep.conf",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "changes": [
+          {
+            "path": "/etc",
+            "incarnation": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/etc/app",
+            "incarnation": 0,
+            "perLayerStatus": "Unchanged",
+            "cumulativeStatus": "Unchanged",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/etc/app/a.conf",
+            "incarnation": 0,
+            "perLayerStatus": "Removed",
+            "cumulativeStatus": "Removed",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": true
+          },
+          {
+            "path": "/etc/app/b.conf",
+            "incarnation": 0,
+            "perLayerStatus": "Removed",
+            "cumulativeStatus": "Removed",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": true
+          },
+          {
+            "path": "/etc/app/new.conf",
+            "incarnation": 0,
+            "perLayerStatus": "Added",
+            "cumulativeStatus": "Added",
+            "newIncarnation": true,
+            "metadataOnly": false,
+            "removed": false
+          },
+          {
+            "path": "/etc/app/sub",
+            "incarnation": 0,
+            "perLayerStatus": "Removed",
+            "cumulativeStatus": "Removed",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": true
+          },
+          {
+            "path": "/etc/app/sub/c.conf",
+            "incarnation": 0,
+            "perLayerStatus": "Removed",
+            "cumulativeStatus": "Removed",
+            "newIncarnation": false,
+            "metadataOnly": false,
+            "removed": true
+          }
+        ]
+      }
+    ]
   }
 }

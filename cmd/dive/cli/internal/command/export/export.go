@@ -8,13 +8,15 @@ import (
 	"github.com/anchore/stereoscope/pkg/filetree/filenode"
 
 	"github.com/wagoodman/dive/dive"
+	"github.com/wagoodman/dive/internal/layerdiff"
 	"github.com/wagoodman/dive/internal/layertree"
 	"github.com/wagoodman/dive/internal/log"
 )
 
 type Export struct {
-	Layer []Layer `json:"layer"`
-	Image Image   `json:"image"`
+	Layer     []Layer   `json:"layer"`
+	Image     Image     `json:"image"`
+	LayerDiff LayerDiff `json:"layerDiff"`
 }
 
 type Layer struct {
@@ -104,6 +106,14 @@ func NewExport(analysis *dive.Analysis) *Export {
 			SizeBytes:  ineff.SizeBytes,
 			Path:       ineff.Path,
 		}
+	}
+
+	// additive per-layer/cumulative diff block; content hashing makes equal-metadata regular files Unchanged
+	diffReport, err := layerdiff.AnalyzeImage(analysis.Image, layerdiff.ImageHasher(analysis.Image))
+	if err != nil {
+		log.WithFields("error", err).Debug("unable to build layer diff report")
+	} else {
+		data.LayerDiff = newLayerDiff(diffReport)
 	}
 
 	return &data

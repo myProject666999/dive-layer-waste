@@ -201,8 +201,8 @@ func TestComparer_Marks(t *testing.T) {
 			fixture: "hardlink-and-symlink",
 			key:     NewTreeIndexKey(0, 0, 1, 1),
 			want: map[string]DiffType{
-				// a symlink replaced by a file
-				"/usr/bin/tool-rel":  Modified,
+				// a symlink replaced by a file is a new incarnation (same path, different identity), so it is Added
+				"/usr/bin/tool-rel":  Added,
 				"/usr/bin/libx-hard": Added,
 				"/usr/bin/tool":      Unmodified,
 				"/usr/bin/tool-hard": Unmodified,
@@ -272,9 +272,49 @@ func TestComparer_DirReplacedByLink(t *testing.T) {
 
 	bin, err := tree.GetNode("/bin")
 	require.NoError(t, err)
-	assert.Equal(t, Modified, bin.Data.DiffType)
+	// the directory incarnation ends and a symlink incarnation begins at the same path: a new identity is Added
+	assert.Equal(t, Added, bin.Data.DiffType)
 	assert.Equal(t, byte(tar.TypeSymlink), bin.Data.FileInfo.TypeFlag)
 	assert.Empty(t, bin.Children, "the old dir contents are gone")
+}
+
+func TestComparer_DualStatuses_RestoreContent(t *testing.T) {
+	// A -> B -> A across three layers. The single-layer view marks layer 3 Modified (A vs B); the cumulative
+	// range view marks it Unchanged (A matches the incarnation's first version).
+	img := imagefixture.LoadSpec(t, imagefixture.Spec{Layers: [][]imagefixture.Entry{
+		{{Name: "f", Content: "aaaaaaaaaa"}},
+		{{Name: "f", Content: "bbbbbbbbbb"}},
+		{{Name: "f", Content: "aaaaaaaaaa"}},
+	}})
+	cmp := NewComparer(img)
+
+	perLayer, err := cmp.GetTree(NewTreeIndexKey(0, 1, 2, 2))
+	require.NoError(t, err)
+	node, err := perLayer.GetNode("/f")
+	require.NoError(t, err)
+	assert.Equal(t, Modified, node.Data.PerLayerDiff, "per-layer: A differs from B")
+
+	cumulative, err := cmp.GetTree(NewTreeIndexKey(0, 0, 1, 2))
+	require.NoError(t, err)
+	node, err = cumulative.GetNode("/f")
+	require.NoError(t, err)
+	assert.Equal(t, Unmodified, node.Data.CumulativeDiff, "cumulative: A matches the first version")
+	assert.Equal(t, Unmodified, node.Data.DiffType, "the aggregate view shows the cumulative convention")
+}
+
+func TestComparer_DualStatuses_RecreateIsNewIncarnation(t *testing.T) {
+	img := imagefixture.LoadSpec(t, imagefixture.Spec{Layers: [][]imagefixture.Entry{
+		{{Name: "f", Content: "aaaaaaaaaa"}},
+		{{Name: ".wh.f"}},
+		{{Name: "f", Content: "cccccccccc"}},
+	}})
+	tree, err := NewComparer(img).GetTree(NewTreeIndexKey(0, 1, 2, 2))
+	require.NoError(t, err)
+	node, err := tree.GetNode("/f")
+	require.NoError(t, err)
+	assert.Equal(t, Added, node.Data.PerLayerDiff, "a recreated path is a new identity, not a modification")
+	assert.Equal(t, Added, node.Data.CumulativeDiff)
+	assert.Equal(t, 1, node.Data.Incarnation)
 }
 
 func TestComparer_ImplicitDirKeepsLowerMetadata(t *testing.T) {

@@ -63,6 +63,8 @@ Files that have changed, been modified, added, or removed are indicated in the f
 
 The lower left pane shows basic layer info and an experimental metric that will guess how much wasted space your image contains. This might be from duplicating files across layers, moving files across layers, or not fully removing files. Both a percentage "score" and total wasted file space is provided.
 
+Wasted space is accounted for per path. For every version of a path that ever appears in a layer, all bytes but the one surviving in the final image count as waste; every version of a path that ends up removed counts as well. A byte-for-byte identical rewrite at the same path is still waste, because the image really stored the bytes again. A path deleted and later recreated, or replaced by a different entry type (a file becoming a directory), is treated as a new identity (incarnation): the old contents are fully wasted and the new contents are an addition, not a modification. Hardlinks carry no data section in a tar, so they contribute zero bytes, and identical content at different paths is not aggregated (that is a separate dedup problem). The `--json` export adds a `layerDiff` block with, for every layer and path, both a per-layer status (this layer vs the previous one) and a cumulative status (vs the first version of the current incarnation), so the two conventions never have to be inferred from one another.
+
 **Quick build/analysis cycles**
 
 You can build a Docker image and do an immediate analysis with one command:
